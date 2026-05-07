@@ -1,5 +1,6 @@
 import React from 'react';
 import { useAuth } from '../context/AuthContext';
+import { useTheme } from '../context/ThemeContext';
 import { 
   FileText, 
   Users, 
@@ -17,6 +18,7 @@ import { documentsApi } from '../lib/api';
 
 export default function Sidebar({ activeTab, setActiveTab, onCreateNew }) {
   const { user, logout } = useAuth();
+  const { theme, toggleTheme } = useTheme();
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -106,22 +108,20 @@ export default function Sidebar({ activeTab, setActiveTab, onCreateNew }) {
         </div>
         
         <button 
-          onClick={() => {
-            document.documentElement.classList.toggle('dark');
-            const isDark = document.documentElement.classList.contains('dark');
-            localStorage.setItem('theme', isDark ? 'dark' : 'light');
-            window.dispatchEvent(new Event('storage')); // Trigger update in other tabs
-          }}
+          onClick={toggleTheme}
           className="w-full flex items-center gap-3 px-4 py-3 mb-2 text-slate-500 hover:text-primary-600 hover:bg-primary-50 dark:hover:bg-slate-800 rounded-xl transition-all duration-200"
         >
-          <div className="dark:hidden flex items-center gap-3">
-            <Moon size={20} />
-            <span>Dark Mode</span>
-          </div>
-          <div className="hidden dark:flex items-center gap-3 text-amber-400">
-            <Sun size={20} />
-            <span>Light Mode</span>
-          </div>
+          {theme === 'light' ? (
+            <div className="flex items-center gap-3">
+              <Moon size={20} />
+              <span>Dark Mode</span>
+            </div>
+          ) : (
+            <div className="flex items-center gap-3 text-amber-400">
+              <Sun size={20} />
+              <span>Light Mode</span>
+            </div>
+          )}
         </button>
 
         <button 

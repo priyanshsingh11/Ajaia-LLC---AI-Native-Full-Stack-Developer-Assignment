@@ -6,6 +6,7 @@ import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import EditorPage from './pages/EditorPage';
 import { AuthProvider, useAuth } from './context/AuthContext';
+import { ThemeProvider } from './context/ThemeContext';
 
 const queryClient = new QueryClient();
 
@@ -19,18 +20,12 @@ const ProtectedRoute = ({ children }) => {
 import Layout from './components/Layout';
 
 function App() {
-  useEffect(() => {
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'dark') {
-      document.documentElement.classList.add('dark');
-    }
-  }, []);
-
   return (
     <QueryClientProvider client={queryClient}>
-      <AuthProvider>
-        <Router>
-          <Routes>
+      <ThemeProvider>
+        <AuthProvider>
+          <Router>
+            <Routes>
             <Route path="/login" element={<Login />} />
             <Route 
               path="/" 
@@ -65,7 +60,8 @@ function App() {
           </Routes>
         </Router>
         <Toaster position="top-right" expand={false} richColors />
-      </AuthProvider>
+        </AuthProvider>
+      </ThemeProvider>
     </QueryClientProvider>
   );
 }
