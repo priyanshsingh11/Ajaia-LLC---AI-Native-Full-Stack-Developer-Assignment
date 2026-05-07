@@ -14,6 +14,15 @@
   --color-primary-950: #172554;
 }
 
+/* Force Light Mode at the Root */
+:root {
+  color-scheme: light !important;
+}
+
+html {
+  background-color: #f8fafc; /* bg-slate-50 */
+}
+
 /* TipTap Editor Styles */
 .ProseMirror {
   outline: none !important;
