@@ -8,24 +8,33 @@
 - [x] Document renaming and deletion
 - [x] Sharing system with email invites
 - [x] File import (.txt, .md)
-- [x] Premium responsive UI
-- [x] Backend API tests
+- [x] Export to Markdown (Stretch Feature)
+- [x] Premium responsive UI (Light Theme optimized)
+- [x] Backend API stability
 - [x] Detailed documentation (README, ARCHITECTURE, AI_WORKFLOW)
 
 ## Demo Credentials
-- **Admin**: `priyansh@test.com` / `password123`
-- **Demo User**: `demo@test.com` / `password123`
+- **Admin**: `priyansh@test.com` / `Test12345`
+- **Demo User**: `demo@test.com` / `demo`
 
-## Deployed URL Placeholder
-- Frontend (Vercel): `https://ajaia-docs-client.vercel.app` (Placeholder)
-- Backend (Render): `https://ajaia-docs-api.onrender.com` (Placeholder)
+## Deployed URL
+- Frontend (Render): `https://ajaia-docs-client.onrender.com` (Update with your actual link)
+- Backend (Render): `https://ajaia-docs-api.onrender.com` (Update with your actual link)
 
-## Known Limitations
-- Real-time collaboration is not implemented (as per requirements).
-- Concurrent edits by multiple users might result in the last save winning.
-- Email invites require the target user to already exist in the system for this demo.
+## Video Walkthrough
+- [Loom Video Link](https://www.loom.com/share/cf704b088e224fe38fc83a85840e89e3)
 
-## Future Improvements
-- Implement Yjs for true real-time collaboration.
-- Add rich media support (images, videos) to the editor.
-- Implement a more complex permission system (Viewer, Editor, Admin).
+## Working Functionality
+- **Real-time Persistence**: Documents auto-save to Supabase with UI feedback ("Synced to Cloud").
+- **Collaborative Sharing**: Users can invite others via email to view/edit documents.
+- **File Interop**: Import `.txt`/`.md` files as new documents; export documents as `.md`.
+- **Responsive Layout**: Sidebar and editor adapt to mobile and desktop screens.
+
+## Incomplete / Limitations
+- **Real-time Indicators**: While the editor is collaborative (shared documents), we did not implement "Who is editing" presence bubbles due to the 4-6 hour time limit.
+- **Conflict Resolution**: Uses a "last-write-wins" strategy rather than full CRDT (Yjs) for complexity management.
+
+## Future Roadmap (Next 2-4 Hours)
+1. **Presence Indicators**: Add avatars showing who is currently viewing/editing the document.
+2. **True CRDT Integration**: Integrate Yjs for character-by-character real-time collaboration.
+3. **Commenting System**: Allow users to highlight text and add comments for team feedback.

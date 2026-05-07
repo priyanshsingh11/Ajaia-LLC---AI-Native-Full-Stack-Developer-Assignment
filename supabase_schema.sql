@@ -25,9 +25,9 @@ create table if not exists public.documents (
 create table if not exists public.document_shares (
   id uuid default uuid_generate_v4() primary key,
   document_id uuid references public.documents(id) on delete cascade not null,
-  user_id uuid references auth.users(id) on delete cascade not null,
+  shared_with_user_id uuid references auth.users(id) on delete cascade not null,
   shared_at timestamp with time zone default timezone('utc'::text, now()) not null,
-  unique(document_id, user_id)
+  unique(document_id, shared_with_user_id)
 );
 
 -- Enable Row Level Security (RLS)
@@ -65,7 +65,7 @@ create policy "Shared users can view documents." on public.documents
     exists (
       select 1 from public.document_shares
       where document_id = public.documents.id
-      and user_id = auth.uid()
+      and shared_with_user_id = auth.uid()
     )
   );
 
@@ -74,7 +74,7 @@ create policy "Shared users can update documents." on public.documents
     exists (
       select 1 from public.document_shares
       where document_id = public.documents.id
-      and user_id = auth.uid()
+      and shared_with_user_id = auth.uid()
     )
   );
 
@@ -93,7 +93,7 @@ create policy "Owners can manage shares for their documents." on public.document
 
 create policy "Shared users can view shares for their documents." on public.document_shares
   for select using (
-    user_id = auth.uid()
+    shared_with_user_id = auth.uid()
   );
 
 -- Trigger for updated_at on documents
