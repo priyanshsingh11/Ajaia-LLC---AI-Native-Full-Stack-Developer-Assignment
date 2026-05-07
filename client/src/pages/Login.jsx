@@ -50,7 +50,7 @@ export default function Login() {
                 <input
                   type="email"
                   required
-                  className="input pl-10"
+                  className="w-full pl-10 pr-4 py-2 border border-slate-200 rounded-xl focus:ring-2 focus:ring-primary-500 outline-none transition-all"
                   placeholder="name@company.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -65,7 +65,7 @@ export default function Login() {
                 <input
                   type="password"
                   required
-                  className="input pl-10"
+                  className="w-full pl-10 pr-4 py-2 border border-slate-200 rounded-xl focus:ring-2 focus:ring-primary-500 outline-none transition-all"
                   placeholder="••••••••"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
@@ -76,7 +76,7 @@ export default function Login() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full btn btn-primary py-3 flex items-center justify-center gap-2"
+              className="w-full bg-primary-600 text-white hover:bg-primary-700 py-3 rounded-xl font-semibold flex items-center justify-center gap-2 transition-all active:scale-95 disabled:opacity-50"
             >
               {loading ? <Loader2 className="animate-spin" size={20} /> : 'Sign In'}
             </button>

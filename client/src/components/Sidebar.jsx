@@ -1,3 +1,4 @@
+import React from 'react';
 import { useAuth } from '../context/AuthContext';
 import { 
   FileText, 
@@ -30,7 +31,7 @@ export default function Sidebar({ activeTab, setActiveTab, onCreateNew }) {
   const recentDocs = data?.owned?.slice(0, 5) || [];
 
   return (
-    <div className="w-64 bg-white border-r border-slate-200 flex flex-col h-screen fixed left-0 top-0 transition-colors">
+    <div className="w-64 bg-white border-r border-slate-200 flex flex-col h-screen fixed left-0 top-0 z-30 shadow-sm">
       <div className="p-6 overflow-y-auto flex-1">
         <div 
           className="flex items-center gap-3 mb-8 cursor-pointer"
@@ -44,7 +45,7 @@ export default function Sidebar({ activeTab, setActiveTab, onCreateNew }) {
 
         <button 
           onClick={onCreateNew}
-          className="w-full btn btn-primary flex items-center justify-center gap-2 py-3 mb-8 shadow-lg shadow-primary-100"
+          className="w-full bg-primary-600 text-white hover:bg-primary-700 px-4 py-3 rounded-xl font-medium transition-all duration-200 flex items-center justify-center gap-2 mb-8 shadow-lg shadow-primary-100 active:scale-95"
         >
           <Plus size={20} />
           <span>New Document</span>

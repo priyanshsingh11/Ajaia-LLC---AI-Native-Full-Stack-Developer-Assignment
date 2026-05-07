@@ -29,15 +29,15 @@ const MenuBar = ({ editor }) => {
   ];
 
   return (
-    <div className="flex flex-wrap gap-1 p-2 border-b border-slate-200 bg-slate-50 sticky top-0 z-10">
+    <div className="flex flex-wrap gap-1 p-3 border-b border-slate-200 bg-white sticky top-0 z-10 shadow-sm">
       {items.map((item, index) => (
         <button
           key={index}
           onClick={item.action}
-          className={`p-2 rounded-lg transition-all ${
+          className={`p-2 rounded-xl transition-all ${
             item.active && editor.isActive(item.active)
               ? 'bg-primary-100 text-primary-600' 
-              : 'text-slate-600 hover:bg-slate-200'
+              : 'text-slate-500 hover:bg-slate-100'
           }`}
           title={item.title}
         >
@@ -57,7 +57,7 @@ export default function Editor({ content, onChange }) {
     },
     editorProps: {
       attributes: {
-        class: 'prose prose-slate max-w-none focus:outline-none min-h-[500px]',
+        class: 'prose prose-slate max-w-none focus:outline-none min-h-[600px] p-10',
       },
     },
   });
@@ -70,9 +70,9 @@ export default function Editor({ content, onChange }) {
   }, [content, editor]);
 
   return (
-    <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+    <div className="bg-white rounded-3xl border border-slate-200 shadow-xl overflow-hidden mb-20">
       <MenuBar editor={editor} />
-      <div className="p-8">
+      <div className="bg-white">
         <EditorContent editor={editor} />
       </div>
     </div>

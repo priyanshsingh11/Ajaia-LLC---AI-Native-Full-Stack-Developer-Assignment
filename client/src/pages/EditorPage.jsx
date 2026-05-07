@@ -91,19 +91,19 @@ export default function EditorPage() {
   };
 
   if (isLoading) return (
-    <div className="flex flex-col items-center justify-center h-screen">
+    <div className="flex flex-col items-center justify-center h-screen bg-white">
       <Loader2 className="animate-spin text-primary-600 mb-4" size={40} />
-      <p className="text-slate-500">Opening your document...</p>
+      <p className="text-slate-500 font-medium">Opening your document...</p>
     </div>
   );
 
   return (
     <div className="flex flex-col h-screen bg-white">
-      <header className="bg-white border-b border-slate-200 px-6 py-3 flex items-center justify-between sticky top-0 z-20">
+      <header className="bg-white border-b border-slate-200 px-6 py-4 flex items-center justify-between sticky top-0 z-20 shadow-sm">
         <div className="flex items-center gap-4 flex-1">
           <button 
             onClick={() => navigate('/')}
-            className="p-2 hover:bg-slate-100 rounded-lg transition-colors text-slate-500"
+            className="p-2 hover:bg-slate-100 rounded-xl transition-colors text-slate-500"
           >
             <ArrowLeft size={20} />
           </button>
@@ -114,27 +114,27 @@ export default function EditorPage() {
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               onBlur={handleTitleBlur}
-              className="text-lg font-bold text-slate-800 bg-transparent border-none focus:outline-none focus:ring-2 focus:ring-primary-500/20 rounded px-2 -ml-2"
+              className="text-lg font-bold text-slate-800 bg-transparent border-none focus:outline-none focus:ring-2 focus:ring-primary-500/20 rounded px-2 -ml-2 w-full max-w-md"
               placeholder="Untitled Document"
             />
-            <div className="flex items-center gap-2 text-[10px] text-slate-400 font-medium ml-0.5">
+            <div className="flex items-center gap-2 text-[10px] text-slate-400 font-bold tracking-wider ml-0.5">
               {updateMutation.isPending ? (
                 <span className="flex items-center gap-1">
                   <Loader2 size={10} className="animate-spin" />
-                  SAVING TO CLOUD...
+                  SAVING...
                 </span>
               ) : (
                 <span className="flex items-center gap-1 text-emerald-500">
                   <Check size={10} />
-                  SAVED TO CLOUD
+                  SYNCED TO CLOUD
                 </span>
               )}
             </div>
           </div>
         </div>
 
-        <div className="flex items-center gap-2">
-          <div className="flex -space-x-2 mr-4">
+        <div className="flex items-center gap-3">
+          <div className="flex -space-x-2 mr-2">
             {document?.collaborators?.slice(0, 3).map((collab, i) => (
               <div 
                 key={i}
@@ -148,7 +148,11 @@ export default function EditorPage() {
 
           <button 
             onClick={() => setShowShare(!showShare)}
-            className={`btn ${showShare ? 'btn-primary' : 'btn-secondary'} flex items-center gap-2 py-2`}
+            className={`px-4 py-2 rounded-xl font-medium flex items-center gap-2 transition-all ${
+              showShare 
+                ? 'bg-primary-600 text-white' 
+                : 'bg-white text-slate-700 border border-slate-200 hover:bg-slate-50'
+            }`}
           >
             <Share2 size={18} />
             <span>Share</span>
@@ -156,7 +160,7 @@ export default function EditorPage() {
           
           <button 
             onClick={exportAsMarkdown}
-            className="btn btn-secondary flex items-center gap-2 py-2"
+            className="px-4 py-2 bg-white text-slate-700 border border-slate-200 rounded-xl font-medium hover:bg-slate-50 flex items-center gap-2 transition-all"
           >
             <Download size={18} />
             <span>Export</span>
@@ -168,7 +172,7 @@ export default function EditorPage() {
                 deleteMutation.mutate();
               }
             }}
-            className="p-2 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all"
+            className="p-2 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-xl transition-all"
           >
             <Trash2 size={20} />
           </button>
@@ -176,22 +180,22 @@ export default function EditorPage() {
       </header>
 
       {showShare && (
-        <div className="bg-primary-50 border-b border-primary-100 px-6 py-4 animate-in slide-in-from-top duration-300">
+        <div className="bg-primary-50 border-b border-primary-100 px-6 py-5">
           <div className="max-w-2xl mx-auto flex items-center gap-4">
             <div className="flex-1 relative">
-              <Users className="absolute left-3 top-1/2 -translate-y-1/2 text-primary-400" size={18} />
+              <Users className="absolute left-4 top-1/2 -translate-y-1/2 text-primary-400" size={18} />
               <input 
                 type="email" 
                 value={shareEmail}
                 onChange={(e) => setShareEmail(e.target.value)}
                 placeholder="Enter email to share with..."
-                className="w-full pl-10 pr-4 py-2 bg-white border border-primary-200 rounded-xl focus:ring-2 focus:ring-primary-500 outline-none"
+                className="w-full pl-11 pr-4 py-3 bg-white border border-primary-200 rounded-2xl focus:ring-2 focus:ring-primary-500 outline-none shadow-sm"
               />
             </div>
             <button 
               onClick={() => shareMutation.mutate(shareEmail)}
               disabled={!shareEmail || shareMutation.isPending}
-              className="btn btn-primary px-6 py-2"
+              className="bg-primary-600 text-white hover:bg-primary-700 px-8 py-3 rounded-2xl font-semibold disabled:opacity-50 transition-all active:scale-95 shadow-lg shadow-primary-100"
             >
               {shareMutation.isPending ? 'Sharing...' : 'Invite'}
             </button>
@@ -199,7 +203,7 @@ export default function EditorPage() {
         </div>
       )}
 
-      <main className="flex-1 overflow-y-auto p-8 bg-slate-50/30">
+      <main className="flex-1 overflow-y-auto p-8 bg-slate-50/50">
         <div className="max-w-4xl mx-auto">
           <Editor 
             content={document?.content} 
