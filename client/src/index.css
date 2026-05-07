@@ -1,0 +1,57 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --color-primary-50: #f5f7ff;
+  --color-primary-100: #ebf0fe;
+  --color-primary-200: #ced9fd;
+  --color-primary-300: #adc0fb;
+  --color-primary-400: #8ca7f9;
+  --color-primary-500: #6b8ef7;
+  --color-primary-600: #5672c6;
+  --color-primary-700: #405594;
+  --color-primary-800: #2b3963;
+  --color-primary-900: #151c31;
+
+  --font-sans: "Inter", system-ui, sans-serif;
+}
+
+@layer base {
+  body {
+    @apply bg-slate-50 text-slate-900 font-sans;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply px-4 py-2 rounded-lg font-medium transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+  .btn-primary {
+    @apply bg-primary-600 text-white hover:bg-primary-700 active:scale-95;
+  }
+  .btn-secondary {
+    @apply bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 active:scale-95;
+  }
+  .btn-ghost {
+    @apply text-slate-600 hover:bg-slate-100 active:scale-95;
+  }
+  .card {
+    @apply bg-white rounded-xl border border-slate-200 p-4 shadow-sm hover:shadow-md transition-shadow;
+  }
+  .input {
+    @apply w-full px-4 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 transition-all;
+  }
+}
+
+/* Tiptap styles */
+.ProseMirror {
+  @apply outline-none min-h-[400px] prose prose-slate max-w-none;
+}
+
+.ProseMirror p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  float: left;
+  color: #adb5bd;
+  pointer-events: none;
+  height: 0;
+}
