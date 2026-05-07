@@ -1,51 +1,51 @@
-@import "tailwindcss";
-@plugin "@tailwindcss/typography";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
-@theme {
-  --color-primary-50: #f5f7ff;
-  --color-primary-100: #ebf0fe;
-  --color-primary-200: #ced9fd;
-  --color-primary-300: #adc0fb;
-  --color-primary-400: #8ca7f9;
-  --color-primary-500: #6b8ef7;
-  --color-primary-600: #5672c6;
-  --color-primary-700: #405594;
-  --color-primary-800: #2b3963;
-  --color-primary-900: #151c31;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-  --font-sans: "Inter", system-ui, sans-serif;
+:root {
+  --primary-50: #eff6ff;
+  --primary-100: #dbeafe;
+  --primary-200: #bfdbfe;
+  --primary-300: #93c5fd;
+  --primary-400: #60a5fa;
+  --primary-500: #3b82f6;
+  --primary-600: #2563eb;
+  --primary-700: #1d4ed8;
+  --primary-800: #1e40af;
+  --primary-900: #1e3a8a;
+  --primary-950: #172554;
 }
 
 @layer base {
   body {
-    @apply bg-slate-50 text-slate-900 font-sans;
+    @apply bg-slate-50 text-slate-900 antialiased;
+    font-family: 'Inter', sans-serif;
   }
 }
 
 @layer components {
   .btn {
-    @apply px-4 py-2 rounded-lg font-medium transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed;
+    @apply px-4 py-2 rounded-xl font-medium transition-all duration-200 flex items-center gap-2 active:scale-95 disabled:opacity-50 disabled:pointer-events-none;
   }
+
   .btn-primary {
-    @apply bg-primary-600 text-white hover:bg-primary-700 active:scale-95;
+    @apply bg-primary-600 text-white hover:bg-primary-700 hover:shadow-lg hover:shadow-primary-100;
   }
+
   .btn-secondary {
-    @apply bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 active:scale-95;
+    @apply bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 hover:border-slate-300;
   }
-  .btn-ghost {
-    @apply text-slate-600 hover:bg-slate-100 active:scale-95;
-  }
+
   .card {
-    @apply bg-white rounded-xl border border-slate-200 p-4 shadow-sm hover:shadow-md transition-shadow;
-  }
-  .input {
-    @apply w-full px-4 py-2 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 transition-all;
+    @apply bg-white p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-all duration-300;
   }
 }
 
-/* Tiptap styles */
+/* TipTap Editor Styles */
 .ProseMirror {
-  @apply outline-none min-h-[400px] prose prose-slate max-w-none;
+  outline: none !important;
 }
 
 .ProseMirror p.is-editor-empty:first-child::before {

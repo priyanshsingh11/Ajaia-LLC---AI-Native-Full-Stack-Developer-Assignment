@@ -6,7 +6,6 @@ import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import EditorPage from './pages/EditorPage';
 import { AuthProvider, useAuth } from './context/AuthContext';
-import { ThemeProvider } from './context/ThemeContext';
 
 const queryClient = new QueryClient();
 
@@ -20,12 +19,15 @@ const ProtectedRoute = ({ children }) => {
 import Layout from './components/Layout';
 
 function App() {
+  useEffect(() => {
+    document.documentElement.classList.remove('dark');
+  }, []);
+
   return (
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider>
-        <AuthProvider>
-          <Router>
-            <Routes>
+      <AuthProvider>
+        <Router>
+          <Routes>
             <Route path="/login" element={<Login />} />
             <Route 
               path="/" 
@@ -60,8 +62,7 @@ function App() {
           </Routes>
         </Router>
         <Toaster position="top-right" expand={false} richColors />
-        </AuthProvider>
-      </ThemeProvider>
+      </AuthProvider>
     </QueryClientProvider>
   );
 }

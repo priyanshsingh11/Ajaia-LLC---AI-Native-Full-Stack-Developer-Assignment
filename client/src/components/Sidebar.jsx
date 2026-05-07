@@ -1,15 +1,11 @@
-import React from 'react';
 import { useAuth } from '../context/AuthContext';
-import { useTheme } from '../context/ThemeContext';
 import { 
   FileText, 
   Users, 
   Plus, 
   LogOut, 
   Search,
-  LayoutDashboard,
-  Sun,
-  Moon
+  LayoutDashboard
 } from 'lucide-react';
 
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -18,7 +14,6 @@ import { documentsApi } from '../lib/api';
 
 export default function Sidebar({ activeTab, setActiveTab, onCreateNew }) {
   const { user, logout } = useAuth();
-  const { theme, toggleTheme } = useTheme();
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -35,16 +30,16 @@ export default function Sidebar({ activeTab, setActiveTab, onCreateNew }) {
   const recentDocs = data?.owned?.slice(0, 5) || [];
 
   return (
-    <div className="w-64 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 flex flex-col h-screen fixed left-0 top-0 transition-colors">
+    <div className="w-64 bg-white border-r border-slate-200 flex flex-col h-screen fixed left-0 top-0 transition-colors">
       <div className="p-6 overflow-y-auto flex-1">
         <div 
           className="flex items-center gap-3 mb-8 cursor-pointer"
           onClick={() => navigate('/')}
         >
-          <div className="w-10 h-10 bg-primary-600 rounded-xl flex items-center justify-center text-white shadow-lg shadow-primary-100 dark:shadow-none">
+          <div className="w-10 h-10 bg-primary-600 rounded-xl flex items-center justify-center text-white shadow-lg shadow-primary-100">
             <FileText size={20} />
           </div>
-          <span className="font-bold text-xl tracking-tight text-slate-800 dark:text-slate-100">AjaiaDocs</span>
+          <span className="font-bold text-xl tracking-tight text-slate-800">AjaiaDocs</span>
         </div>
 
         <button 
@@ -65,8 +60,8 @@ export default function Sidebar({ activeTab, setActiveTab, onCreateNew }) {
               }}
               className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 ${
                 activeTab === item.id 
-                  ? 'bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400 font-semibold' 
-                  : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800'
+                  ? 'bg-primary-50 text-primary-600 font-semibold' 
+                  : 'text-slate-600 hover:bg-slate-50'
               }`}
             >
               <item.icon size={20} />
@@ -98,31 +93,14 @@ export default function Sidebar({ activeTab, setActiveTab, onCreateNew }) {
 
       <div className="mt-auto p-6 border-t border-slate-100">
         <div className="flex items-center gap-3 mb-6">
-          <div className="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-slate-600 dark:text-slate-400 font-bold uppercase">
+          <div className="w-10 h-10 rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-600 font-bold uppercase">
             {user?.email?.[0]}
           </div>
           <div className="flex-1 min-w-0">
-            <p className="text-sm font-semibold text-slate-800 dark:text-slate-100 truncate">{user?.email?.split('@')[0]}</p>
-            <p className="text-xs text-slate-500 dark:text-slate-400 truncate">{user?.email}</p>
+            <p className="text-sm font-semibold text-slate-800 truncate">{user?.email?.split('@')[0]}</p>
+            <p className="text-xs text-slate-500 truncate">{user?.email}</p>
           </div>
         </div>
-        
-        <button 
-          onClick={toggleTheme}
-          className="w-full flex items-center gap-3 px-4 py-3 mb-2 text-slate-500 hover:text-primary-600 hover:bg-primary-50 dark:hover:bg-slate-800 rounded-xl transition-all duration-200"
-        >
-          {theme === 'light' ? (
-            <div className="flex items-center gap-3">
-              <Moon size={20} />
-              <span>Dark Mode</span>
-            </div>
-          ) : (
-            <div className="flex items-center gap-3 text-amber-400">
-              <Sun size={20} />
-              <span>Light Mode</span>
-            </div>
-          )}
-        </button>
 
         <button 
           onClick={logout}

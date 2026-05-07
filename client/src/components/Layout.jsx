@@ -23,13 +23,13 @@ export default function Layout({ children }) {
   });
 
   return (
-    <div className="flex min-h-screen bg-slate-50 dark:bg-slate-950 transition-colors">
+    <div className="flex min-h-screen bg-slate-50 transition-colors">
       <Sidebar 
         activeTab={activeTab} 
         setActiveTab={(id) => navigate(id === 'all' ? '/' : '/shared')} 
         onCreateNew={() => createMutation.mutate({ title: 'Untitled Document' })}
       />
-      <main className="flex-1 ml-64 min-h-screen dark:text-slate-100">
+      <main className="flex-1 ml-64 min-h-screen">
         {children}
       </main>
     </div>
