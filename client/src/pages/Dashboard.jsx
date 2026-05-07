@@ -24,7 +24,7 @@ export default function Dashboard({ activeTab = 'all' }) {
   });
 
   const importMutation = useMutation({
-    mutationFn: (file) => documentsApi.importFile(file),
+    mutationFn: (file) => documentsApi.import(file),
     onSuccess: (newDoc) => {
       queryClient.invalidateQueries(['documents']);
       navigate(`/document/${newDoc.id}`);
